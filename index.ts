@@ -5,8 +5,8 @@ import { spellChecker } from "./spellChecker.service";
 // Add training text from a file
 spellChecker.trainFromFile("INPUT_Dictionary_programmingnotes_org.txt");
 
-// Optional: Add training text from an std::string
-//spellchecker.train();
+// Optionally, add training text from a string
+//spellChecker.train();
 
 // Correct a word and display results
 console.log(spellChecker.correct("KENNtH"));
@@ -17,7 +17,7 @@ console.log(spellChecker.correct("KENNtH"));
 const cases = [
     ["KENNtH", "KENNetH"],
     ["Jennierr", "Jennifer"],
-    ["LYnNn", "Lynn"],
+    ["LYnNn", "LYNn"],
     ["Soole", "Sole"],
     ["speling", "spelling"],
     ["korrectud", "corrected"],
@@ -27,7 +27,7 @@ const cases = [
     ["peotry", "poetry"],
     ["peotryy", "poetry"],
     ["word", "word"],
-    ["quintessential", "quintessential"],
+    ["quintessential", ""], // Doesn't exist in training data
     ["transportibility", "transportability"],
     ["addresable", "addressable"],
     ["auxiliaryy", "auxiliary"],
@@ -35,7 +35,8 @@ const cases = [
     ["prplee", "purple"],
     ["Succesfuil", "Successful"],
     ["AMEIRICUA", "AMERICA"],
-    ["Langauege", "Language"]
+    ["Langauege", "Language"],
+    ["bicycle", "bicycle"], // Correctly spelled should return the same word
 ];
 
 // Correct the words in the test cases

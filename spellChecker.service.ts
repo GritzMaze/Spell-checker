@@ -1,5 +1,3 @@
-// Typescript code
-
 import fs from 'fs';
 
 
@@ -23,13 +21,14 @@ export class SpellChecker {
     }
 
     public train(text: string): void {
-        const words = text.split(" ");
+        const words = text.split(/\s+/g);
         words.forEach(word => {
             this.clean(word);
             if (word.length === 0) {
                 return;
             }
-            this.NWORDS.set(word, (this.NWORDS.get(word) || 0) + 1);
+
+            this.NWORDS.set(word.toLowerCase(),(this.NWORDS.get(word) || 0) + 1);
         });
     }
 
@@ -53,7 +52,8 @@ export class SpellChecker {
         let maxValue: number = -1987199120102019;
 
         candidates.forEach(candidate => {
-            let currentValue = this.NWORDS.get(candidate) || 0;
+            let currentCandidate = this.NWORDS.get(candidate.toLocaleLowerCase());
+            let currentValue = currentCandidate || 0;
             // Add a penalty to the candidate based on the length change
             const lengthChange = Math.abs(candidate.length - word.length);
             currentValue -= lengthChange;
@@ -70,12 +70,7 @@ export class SpellChecker {
     }
     
     private existsInMap(word: string): boolean {
-        for(const [key] of this.NWORDS) {
-            if(key.toLowerCase() === word.toLowerCase()) {
-                return true;
-            }
-        }
-        return false;
+       return this.NWORDS.has(word.toLowerCase());
     }
 
     private edit(words: Set<string>): Set<string> {
@@ -93,9 +88,9 @@ export class SpellChecker {
                     if (b.length > 1) {
                         edits.add(a + b[1] + b[0] + d);
                     }
-                    // Alteration & Inserts
+                    // Replaces & Inserts
                     this.alphabet.forEach(letter => {
-                        // Alteration
+                        // Replaces
                         edits.add(a + letter + c);
                         // Inserts
                         edits.add(a + letter + b);
