@@ -1,12 +1,7 @@
-// Typescript code
-
 import { spellChecker } from "./spellChecker.service";
 
 // Add training text from a file
 spellChecker.trainFromFile("INPUT_Dictionary_programmingnotes_org.txt");
-
-// Optionally, add training text from a string
-//spellChecker.train();
 
 // Correct a word and display results
 console.log(spellChecker.correct("KENNtH"));

@@ -57,7 +57,7 @@ export class SpellChecker {
             // Add a penalty to the candidate based on the length change
             const lengthChange = Math.abs(candidate.length - word.length);
             currentValue -= lengthChange;
-            if (maxValue === -1987199120102019 || currentValue > maxValue) {
+            if (currentValue > maxValue) {
                 maxKey = candidate;
                 maxValue = currentValue;
             }
